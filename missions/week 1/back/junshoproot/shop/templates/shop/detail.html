@@ -1,0 +1,29 @@
+{% if item %}
+    <img src={{ item.photo_thumb.url }} alt="이미지">
+    작은 이미지
+    <img src={{ item.photo_thumb.url }} alt="이미지">
+    {% for photo in item.photo_set.all %}
+        <img src={{photo.path.url }} alt="이미지">
+    {% endfor %}
+    <p>{{item.price}}</p>
+    <p>{{item.item_text}}</p>
+
+{% else %}
+    <p>Error!</p>
+{% endif %}
+
+
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    color = models.CharField(max_length=100)
+    size = models.IntegerField()
+    price = models.IntegerField()
+    remaining = models.IntegerField()
+    item_text = models.CharField(max_length=200) # 제품 설명
+
+    photo_thumb = models.ImageField(blank=True, upload_to="images")
+    item_name = models.CharField(max_length=40) # 제품 이름
+    type = models.CharField(max_length=8) # 상품종류
+    price = models.IntegerField()
+
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    path = models.CharField(max_length=100)
